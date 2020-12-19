@@ -28,9 +28,9 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.1
   taobaokeapi:
-    path: ../taobaokeapi
+    path: ../flutter_taobaokeapi
   taobaokeui:
-    path: ../taobaokeui
+    path: ../flutter_taobaokeui
   sqflite: ^1.3.2+1
   provider: ^4.3.2
   shared_preferences: ^0.5.12

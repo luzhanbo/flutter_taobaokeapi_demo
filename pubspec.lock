@@ -388,14 +388,14 @@ packages:
   taobaokeapi:
     dependency: "direct main"
     description:
-      path: "../../dart/taobaokeapi"
+      path: "../flutter_taobaokeapi"
       relative: true
     source: path
     version: "0.1.0"
   taobaokeui:
     dependency: "direct main"
     description:
-      path: "../taobaokeui"
+      path: "../flutter_taobaokeui"
       relative: true
     source: path
     version: "0.0.1"
