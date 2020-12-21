@@ -7,9 +7,11 @@
 - flutter_taobaokeui
 
 ## 测试应用
-flutter run
+1. 安装Flutter环境，参考：https://flutter.cn/docs/get-started/install
+2. flutter pub get
+3. flutter run
 
 ## 界面
-![分类列表详情](docs/images/1.jpg)
+![分类列表详情](https://taoke.space/images/1.jpg)
 
-![订单同步设置](docs/images/2.jpg)
+![订单同步设置](https://taoke.space/images/2.jpg)
