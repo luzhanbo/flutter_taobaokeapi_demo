@@ -1,5 +1,5 @@
-name: taobaokeapi_demo
-description: A new Flutter project.
+name: taobaokeapi
+description: 淘宝客API DEMO.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
@@ -35,6 +35,7 @@ dependencies:
   provider: ^4.3.2
   shared_preferences: ^0.5.12
   flutter_easyrefresh: ^2.1.6
+  flutter_slidable: 0.5.7
 
 dev_dependencies:
   flutter_test:

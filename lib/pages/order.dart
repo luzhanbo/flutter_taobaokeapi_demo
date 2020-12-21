@@ -10,7 +10,7 @@ import '../services/db_utils.dart';
 import '../components/orderMenu.dart';
 
 var statesId = ['0','12','14','3','13'];
-var statusName = ['全部', '已付款', '已收货', '已确认', '已失效'];
+var statusName = ['全部', '付款', '收货', '确认', '失效'];
 
 class OrderPage extends StatefulWidget {
   final StreamController streamController;

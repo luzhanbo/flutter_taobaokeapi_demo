@@ -101,18 +101,18 @@ class _SettingPageState extends State<SettingPage>{
 
   @override
   Widget build(BuildContext context) {
+    var pastFormat = '粘贴格式：\nname usertoken siteid adzoneid\n项之间是一个空格';
     return Scaffold(
       appBar: AppBar(
         title: Text('设置帐号'),
         actions: [
           IconButton(icon: Icon(Icons.help),onPressed: (){
-            alert(context: context,content: '快速录入，粘贴格式：\nname usertoken siteid adzoneid\n项之间是一个空格');
+            alert(context: context,content: '快速录入，$pastFormat');
           },),
           IconButton(icon: Icon(Icons.paste),onPressed: () async{
             var line = await Clipboard.getData(Clipboard.kTextPlain);
-            print(line.text);
             if(line.text.isNotEmpty){
-              var items = line.text.split(' ');
+              var items = line.text.trim().split(' ');
 
               if(items.length==4 || items.length==2){
                 _name.text = items[0];
@@ -121,6 +121,8 @@ class _SettingPageState extends State<SettingPage>{
                   _siteId.text = items[2];
                   _adzoneId.text = items[3];
                 }
+              }else{
+                alert(context:context,content: '粘贴内容不符合粘贴格式\n$pastFormat');
               }
             }
           },tooltip: '粘贴',),

@@ -132,6 +132,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.0.3"
+  flutter_slidable:
+    dependency: "direct main"
+    description:
+      name: flutter_slidable
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.5.7"
   flutter_swiper:
     dependency: transitive
     description:
@@ -398,7 +405,7 @@ packages:
       path: "../flutter_taobaokeui"
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.1.0"
   term_glyph:
     dependency: transitive
     description:

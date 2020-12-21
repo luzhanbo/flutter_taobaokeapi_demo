@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+
 import '../services/utils.dart';
 import '../services/setting_utils.dart';
 import 'dart:async';
@@ -56,36 +58,58 @@ class _MyPageState extends State<MyPage>{
   Widget _getListItem(BuildContext context,int index){
     var item = _list[index];
     var trailing = item['user_token']==userToken?Icon(Icons.done):null;
-    return InkWell(
-      onTap: () async{
-        await saveCurrentSetting(item);
-      },
-      child: ListTile(title: Text(item['name']??'未知'),
-          subtitle: Text(item['user_token']),
-          leading: Icon(Icons.person),
-          trailing:trailing
+
+    return Slidable(
+      actionPane: SlidableDrawerActionPane(),
+      actionExtentRatio: 0.25,
+      child: Container(
+        color: Colors.white,
+        child: InkWell(
+          onTap: () async{
+            await saveCurrentSetting(item);
+          },
+          child: ListTile(title: Text(item['name']??'未知'),
+              subtitle: Text(item['user_token']),
+              leading: Icon(Icons.person),
+              trailing:trailing
+          ),
+        ),
       ),
+      secondaryActions: <Widget>[
+        IconSlideAction(
+          caption: '修改',
+          color: Colors.blueAccent,
+          icon: Icons.edit,
+          onTap: () async {
+            await Navigator.of(context).pushNamed('/setting',arguments: item);
+            await _initListFromDb(context);
+          },
+        ),
+        IconSlideAction(
+          caption: '删除',
+          color: Colors.red,
+          icon: Icons.delete,
+          onTap: () {
+            confirm(context: context,content: '确认要删除帐号信息？\n【该帐号的订单会不会被删除】',onConfirm: (){
+              _delete(item['user_token']);
+            });
+          },
+        ),
+      ],
     );
+
   }
 
-  _edit(BuildContext context) async{
-    if(userToken!=null){
-      var item = _list.where((item) => item['user_token']==userToken).first;
-      await Navigator.of(context).pushNamed('/setting',arguments: item);
-    }else{
-      await Navigator.of(context).pushNamed('/setting');
-    }
-    await _initListFromDb(context);
-  }
 
-  _delete() async{
+  _delete(String token) async{
     var db = await openUserDb();
-    await db.delete('UserToken',where: 'user_token=?',whereArgs: [userToken]);
-    await deleteCurrentSetting();
-    setState(() {
-      userToken = null;
-    });
-
+    await db.delete('UserToken',where: 'user_token=?',whereArgs: [token]);
+    if(token==userToken){
+      await deleteCurrentSetting();
+      setState(() {
+        userToken = null;
+      });
+    }
     await db.close();
     await _initListFromDb(context);
   }
@@ -104,25 +128,7 @@ class _MyPageState extends State<MyPage>{
             await Navigator.of(context).pushNamed('/setting');
             _init();
           },),
-          Offstage(
-            offstage: userToken==null,
-            child: IconButton(
-              icon: Icon(Icons.edit),
-              onPressed: (){
-                _edit(context);
-              },
-            ),
-          ),
-          Offstage(
-            offstage: userToken==null,
-            child: IconButton(
-                  icon: Icon(Icons.delete),
-                  onPressed: (){
-                    confirm(context: context,content: '确认要删除帐号信息？\n【该帐号的订单会不会被删除】',onConfirm: (){
-                      _delete();
-                    });
-                  },
-            ))
+
         ],
       ),
       body: ListView.separated(
