@@ -79,6 +79,7 @@ class _OrderPageState extends State<OrderPage> {
           setState(() {
             _syncing = false;
           });
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('订单同步已完成'),));
         },onProgress: (SyncProgress progress){
           print(progress);
           print('rate=${progress.finishRate}');
