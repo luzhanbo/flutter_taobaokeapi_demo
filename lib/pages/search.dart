@@ -50,20 +50,35 @@ class _SearchPageState extends State<SearchPage> {
 
   _search({bool refresh=false}) async{
     var tbClient = await getTbClient();
-    var ret = await tbClient.search(q: widget.keyword,withCoupon: true,pageNo: _pageNo,pageSize: _pageSize);
-    var errMsg = ret['sub_msg']??ret['msg'];
-    if(errMsg!=null){
-      print(ret);
-      alert(context: _context,content: errMsg);
-    }else{
-      setState(() {
-        var list = ret["result_list"]["map_data"] as List<dynamic>;
-        if(refresh || _list.length==0){
-          _list = list;
+    var tryTime = 0;
+
+    while(tryTime<3) {
+      var ret = await tbClient.search(q: widget.keyword,
+          withCoupon: true,
+          pageNo: _pageNo,
+          pageSize: _pageSize);
+      var errMsg = ret['sub_msg'] ?? ret['msg'];
+      var code = ret['code'];
+      var subCode = ret['sub_code'];
+      if (errMsg != null) {
+        if(code==15 && subCode==50001){
+          print('retry search');
+          continue;
         }else{
-          _list.addAll(list);
+          print(ret);
+          alert(context: _context, content: errMsg);
         }
-      });
+      } else {
+        setState(() {
+          var list = ret["result_list"]["map_data"] as List<dynamic>;
+          if (refresh || _list.length == 0) {
+            _list = list;
+          } else {
+            _list.addAll(list);
+          }
+        });
+        break;
+      }
     }
   }
 

@@ -7,7 +7,7 @@ import 'package:taobaokeapi/taobaokeapi.dart';
 import 'package:taobaokeui/taobaokeui.dart';
 import '../services/utils.dart';
 import '../services/db_utils.dart';
-import '../components/orderMenu.dart';
+import '../components/OrderMenu.dart';
 
 var statesId = ['0','12','14','3','13'];
 var statusName = ['全部', '付款', '收货', '确认', '失效'];
