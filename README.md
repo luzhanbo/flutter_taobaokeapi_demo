@@ -8,8 +8,10 @@
 
 ## 测试应用
 1. 安装Flutter环境，参考：https://flutter.cn/docs/get-started/install
-2. flutter pub get
-3. flutter run
+2. flutter channel master
+3. flutter upgrade
+4. flutter pub get
+5. flutter run
 
 ## 界面
 ![分类列表详情](https://taoke.space/images/1.jpg)

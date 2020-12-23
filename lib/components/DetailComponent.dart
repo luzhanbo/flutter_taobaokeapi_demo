@@ -127,7 +127,11 @@ class GoodsDetail extends StatelessWidget{
           autoplay: true,
           pagination: SwiperPager(),
           itemBuilder: (BuildContext context,int index){
-            return CachedNetworkImage(imageUrl:urls[index],width: width,height: width,);
+            return CachedNetworkImage(imageUrl:urls[index],
+              // progressIndicatorBuilder: (context, url, downloadProgress) =>
+              //     CircularProgressIndicator(value: downloadProgress.progress),
+              errorWidget: (context, url, error) => Icon(Icons.error),
+              width: width,height: width,);
           },)
     );
   }
